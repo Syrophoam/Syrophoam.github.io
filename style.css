@@ -1,0 +1,8 @@
+@font-face {
+    font-family: "BKM";
+    src: url('fonts/cmr8.otf');
+}
+
+body{
+    font-family: "BKM", monospace;
+}
