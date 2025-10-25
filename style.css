@@ -1,6 +1,7 @@
 @font-face {
     font-family: "BKM";
-    src: url('/fonts/cmr8.otf');
+    src: url('/fonts/cmr8.otf') format(otf),
+         url('/fonts/cmr8.ttf') format(ttf);  
 }
 
 body{
