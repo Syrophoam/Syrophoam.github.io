@@ -469,10 +469,7 @@ const intervalId = setInterval(() => {
     let mouseLine = mouseY * (width + 1);
 
     let chars = Array.from(para.textContent);
-    for (let i = 0; i < mouseX; i++) {
-        let mouseLineIndex = mouseLine + i;
-        chars[mouseLineIndex] = (mouseLineIndex % 2) ? "█" : " ";
-    }
+    
 
     let clickInfo = " ";
 
@@ -523,11 +520,25 @@ const intervalId = setInterval(() => {
         }
     }
 
+        for (let i = 0; i < mouseX; i++) {
+        let mouseLineIndex = mouseLine + i;
 
-    chars[index - 4] = "🯁";
-    chars[index - 3] = "🯂";
-    chars[index - 2] = "🯃";
-    chars[index - 1] = clickInfo;
+        chars[mouseLineIndex] = ((mouseLineIndex + clicked) % 2) ? "█" : " ";
+    }
+
+    if (clicked) {
+        chars[index - 3] = "🯁";
+        chars[index - 2] = "🯂";
+        chars[index - 1] = "🯃";
+        chars[index - 0] = clickInfo;
+    } else {
+        chars[index - 4] = "🯁";
+        chars[index - 3] = "🯂";
+        chars[index - 2] = "🯃";
+        chars[index - 1] = clickInfo;
+    }
+
+
 
     chars[chars.length - 2] = dance[(Math.floor(count / 10) % 4)];
 
