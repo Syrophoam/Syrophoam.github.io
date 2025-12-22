@@ -34,6 +34,17 @@ document.body.style.backgroundColor = "#000000";
 document.body.style.overflow = 'hidden';
 document.body.style.position = 'fixed';
 
+async function loadCustomFont() {
+    const font = new FontFace('Menlo', 'url(MEDIA/Menlo.ttc)');
+    await font.load();
+    
+    document.fonts.add(font);
+    
+    para.style.fontFamily = 'Menlo, sans-serif';
+}
+
+loadCustomFont().catch(err => console.error(err));
+
 
 const header = document.getElementById("header");
 header.style.color = "#00FF00";
@@ -43,7 +54,7 @@ header.textContent = "welcome! use W and S to scroll, press space to start ambia
 
 
 let width = Math.floor((window.innerWidth / 12 * 1.65) + 1);
-let height = Math.floor((window.innerHeight / 12) - 1);
+let height = Math.floor((window.innerHeight / 12) - 2);
 
 let verticalScroll = 0;
 let clicked = 0;
@@ -98,8 +109,8 @@ let mousePosX = 1;
 let mousePosY = 1;
 
 document.addEventListener('mouseleave', function(event){
-    mousePosX = -1;
-    mousePosY = -1;
+    mousePosX = 0;
+    mousePosY = 0;
 })
 
 let Clicks = [
@@ -221,16 +232,55 @@ let musics = [
     new ASCIIText(soundcloud, "https://soundcloud.com/ketarix-joe", 30, 22)
 ];
 
+// 🬀	🬁	🬂	🬃	🬄	🬅	🬆	🬇	🬈	🬉	🬊	🬋	🬌	🬍	🬎	🬏
+// 🬐	🬑	🬒	🬓	🬔	🬕	🬖	🬗	🬘	🬙	🬚	🬛	🬜	🬝	🬞	🬟
+// 🬠	🬡	🬢	🬣	🬤	🬥	🬦	🬧	🬨	🬩	🬪	🬫	🬬	🬭	🬮	🬯
+// 🬰	🬱	🬲	🬳	🬴	🬵	🬶	🬷	🬸	🬹	🬺	🬻
 
+let init = 0;
+let piece = -1;
+let peiceY = -1;
+let peiceX = 4;
+let speed = 4;
 
+let peiceChar = [
+    ["🬛", "🬍🬃", "🬵🬏", "🬫", "🬊🬀", "🬩🬃" ]
+
+];
+
+function peiceDropped(w){
+    peiceY = 0;
+    peiceX = Math.floor(Math.random() * w);
+}
+//67 x 60
 function drawTetris(x, y, w, h, chars) {
 
-    // let chars = Array.from(currentContent);
+    if(!init){
+        init = 1;
+        peiceDropped(h);
+    }
+
+    if(!(count % speed)){
+        peiceY++;
+        if(peiceY == h){
+            peiceDropped(w);
+        }
+    }
+    // console.log(peiceX);
+
     for (let i = 0; i < h; i++) {
         for (let j = 0; j < w; j++) {
             let index = ((i + y) * (width + 1)) + (j + x);
             if (index < chars.length) {
-                chars[index] = "🮁";
+                chars[index] = " ";
+
+
+                if((i == peiceY) && (j == peiceX)){
+                    chars[index] = "🬛"; 
+                }
+
+
+
             }
         }
     }
@@ -248,9 +298,6 @@ function drawBox(x, y, w, h, currentContent, title, items) {
             x--;
             w--;
         }
-
-        
-
     }
 
     let chars = Array.from(currentContent);
@@ -389,6 +436,14 @@ let TETRIS = [
     '   ██║   ███████╗   ██║   ██║  ██║██║███████║',
     '   ╚═╝   ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚══════╝'
 ];
+let TEST = [
+'████████╗',
+'╚══██╔══╝',
+'   ██║   ',
+'   ██║   ',
+'   ██║   ',
+'   ╚═╝   '
+];
 
 let dance = ["🯅", "🯆", "🯇", "🯈"];
 let stars = ["✦", "✧", "✩", "✫", "✬", "✭", "✮", "✯", "✰"];
@@ -469,9 +524,9 @@ const intervalId = setInterval(() => {
     let mouseLine = mouseY * (width + 1);
 
     let chars = Array.from(para.textContent);
-    
-
     let clickInfo = " ";
+
+    
 
     let softBoxClicked = isClickInBox(mouseX, mouseY, 10, 25 - verticalScroll, 76, 22);
     if (softBoxClicked) {
@@ -520,7 +575,9 @@ const intervalId = setInterval(() => {
         }
     }
 
-        for (let i = 0; i < mouseX; i++) {
+
+
+    for (let i = 0; i < mouseX; i++) {
         let mouseLineIndex = mouseLine + i;
 
         chars[mouseLineIndex] = ((mouseLineIndex + clicked) % 2) ? "█" : " ";
