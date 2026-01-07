@@ -232,6 +232,29 @@ let musics = [
     new ASCIIText(soundcloud, "https://soundcloud.com/ketarix-joe", 30, 22)
 ];
 
+let turnOnMyLamp = [
+'▄▖               ',
+'▐ ▌▌▛▘▛▌  ▛▌▛▌   ',
+'▐ ▙▌▌ ▌▌  ▙▌▌▌   ',
+'                 ',
+'       ▜        ▌',
+'▛▛▌▌▌  ▐ ▀▌▛▛▌▛▌▌',
+'▌▌▌▙▌  ▐▖█▌▌▌▌▙▌▖',
+'   ▄▌         ▌  '
+];
+
+let website = [
+'          ▌          ▌       ',
+'▛▘▌▌▛▘▛▌▛▌▛▌▛▌▀▌▛▛▌  ▛▌▀▌▌▌▛▘',
+'▄▌▙▌▌ ▙▌▙▌▌▌▙▌█▌▌▌▌▗ ▌▌█▌▙▌▄▌',
+'  ▄▌    ▌                    '
+];
+
+let networks = [
+    new ASCIIText(turnOnMyLamp, "...", 5, 10),
+    new ASCIIText(website, "http://syrophoam.haus", 30, 15)
+]
+
 // 🬀	🬁	🬂	🬃	🬄	🬅	🬆	🬇	🬈	🬉	🬊	🬋	🬌	🬍	🬎	🬏
 // 🬐	🬑	🬒	🬓	🬔	🬕	🬖	🬗	🬘	🬙	🬚	🬛	🬜	🬝	🬞	🬟
 // 🬠	🬡	🬢	🬣	🬤	🬥	🬦	🬧	🬨	🬩	🬪	🬫	🬬	🬭	🬮	🬯
@@ -436,13 +459,13 @@ let TETRIS = [
     '   ██║   ███████╗   ██║   ██║  ██║██║███████║',
     '   ╚═╝   ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚══════╝'
 ];
-let TEST = [
-'████████╗',
-'╚══██╔══╝',
-'   ██║   ',
-'   ██║   ',
-'   ██║   ',
-'   ╚═╝   '
+let NETWORK = [
+'███╗   ██╗███████╗████████╗██╗    ██╗ ██████╗ ██████╗ ██╗  ██╗',
+'████╗  ██║██╔════╝╚══██╔══╝██║    ██║██╔═══██╗██╔══██╗██║ ██╔╝',
+'██╔██╗ ██║█████╗     ██║   ██║ █╗ ██║██║   ██║██████╔╝█████╔╝ ',
+'██║╚██╗██║██╔══╝     ██║   ██║███╗██║██║   ██║██╔══██╗██╔═██╗ ',
+'██║ ╚████║███████╗   ██║   ╚███╔███╔╝╚██████╔╝██║  ██║██║  ██╗',
+'╚═╝  ╚═══╝╚══════╝   ╚═╝    ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝'
 ];
 
 let dance = ["🯅", "🯆", "🯇", "🯈"];
@@ -514,8 +537,9 @@ const intervalId = setInterval(() => {
 
 
     para.textContent = drawBox(Math.floor(0.04 * width), 25 - verticalScroll, 76, 22, para.textContent, SOFTWARE, softwares);
-    para.textContent = drawBox(Math.floor(0.5 * width), 37 - verticalScroll, 61, 29, para.textContent, MUSIC, musics);
+    para.textContent = drawBox(Math.floor(0.5 * width), 40 - verticalScroll, 61, 29, para.textContent, MUSIC, musics);
     para.textContent = drawBox(Math.floor(0.25 * width), 70 - verticalScroll, 67, 60, para.textContent, TETRIS, "tetris");
+    para.textContent = drawBox(Math.floor(0.65 * width), 15 - verticalScroll, 74, 24, para.textContent, NETWORK, networks);
 
     const mouseX = Math.floor(mousePosX);
     const mouseY = Math.floor(mousePosY);
@@ -552,11 +576,11 @@ const intervalId = setInterval(() => {
     }
 
 
-    let musicBoxClicked = isClickInBox(mouseX, mouseY, 120, 37 - verticalScroll, 61, 29);
+    let musicBoxClicked = isClickInBox(mouseX, mouseY, 120, 40 - verticalScroll, 61, 29);
     if (musicBoxClicked) {
         let clickedIndex = -1;
         for (let i = 0; i < musics.length; i++) {
-            if (isClickInBox(mouseX, mouseY, 120 + musics[i].x, 37 - verticalScroll + musics[i].y, musics[i].ASCII[0].length, musics[i].ASCII.length)) {
+            if (isClickInBox(mouseX, mouseY, 120 + musics[i].x, 40 - verticalScroll + musics[i].y, musics[i].ASCII[0].length, musics[i].ASCII.length)) {
                 clickedIndex = i;
                 break;
             }
@@ -568,6 +592,37 @@ const intervalId = setInterval(() => {
             }
             if (clicked) {
 
+                clickInfo = "🯀";
+            } else {
+                clickInfo = "🮮";
+            }
+        }
+    }
+
+    let networkBoxClicked = isClickInBox(mouseX, mouseY, Math.floor(0.65 * width), 15 - verticalScroll, 74, 24);
+    if (networkBoxClicked) {
+        let clickedIndex = -1;
+        for (let i = 0; i < networks.length; i++) {
+            if (isClickInBox(mouseX, mouseY, Math.floor(0.65 * width) + networks[i].x, 15 - verticalScroll + networks[i].y, networks[i].ASCII[0].length, networks[i].ASCII.length)) {
+                clickedIndex = i;
+                break;
+            }
+        }
+        if (clickedIndex > -1) {
+
+            if (released) {
+                if(clickedIndex == 0){
+                    let ws = new WebSocket("ws://syrophoam.haus/syro");
+                    ws.onopen = (event) => {
+                        console.log('Connection established:', event);
+                        ws.send('Data ready to transmit.');
+                    };
+
+                }else{
+                    window.location.href = networks[clickedIndex].url;
+                }
+            }
+            if (clicked) {
                 clickInfo = "🯀";
             } else {
                 clickInfo = "🮮";
