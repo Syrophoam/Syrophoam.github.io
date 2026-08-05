@@ -203,7 +203,7 @@ let lampProgrammer = [
 
 let softwares = [
     new ASCIIText(barkhausen, "BARKHAUSEN.html", 5, 10),
-    new ASCIIText(mineSweeper, "https://github.com/Syrophoam/MineSweeperForTouchBar", 10, 16),
+    new ASCIIText(mineSweeper, "https://github.com/Syrophoam/MineBar", 10, 16),
     new ASCIIText(lampProgrammer, "https://github.com/Syrophoam/lampProgrammer", 35, 9)
 ];
 
